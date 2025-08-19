@@ -1,8 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
+import MapView from "./MapView";
 
-export default function Home() {
-  const [data, setData] = useState<{ items: any[] } | null>(null);
+export default function HomePage() {
+  const [data, setData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -19,11 +20,18 @@ export default function Home() {
   }, []);
 
   if (error) return <div style={{ padding: 24 }}>Error: {error}</div>;
-  if (!data) return <div style={{ padding: 24 }}>Loading…</div>;
+  if (!data) return (
+    <main>
+      <h1>Boston Environmental Tracker</h1>
+      <MapView />
+      <div style={{ padding: 24 }}>Loading…</div>
+    </main>
+  );
 
   return (
-    <main style={{ padding: 24, fontFamily: "system-ui" }}>
-      <h1>EnvTrack – Areas</h1>
+    <main>
+      <h1>Boston Environmental Tracker</h1>
+      <MapView />
       <table cellPadding={8} style={{ borderCollapse: "collapse", border: "1px solid #ddd" }}>
         <thead>
           <tr><th>ID</th><th>Name</th><th>Score</th><th>Air</th><th>Water</th><th>Hazard</th></tr>
@@ -44,4 +52,3 @@ export default function Home() {
     </main>
   );
 }
-
